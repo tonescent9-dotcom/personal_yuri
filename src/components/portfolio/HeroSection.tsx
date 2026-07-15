@@ -29,7 +29,7 @@ export function HeroSection() {
   return (
     <section
       id="top"
-      className="relative flex min-h-svh w-full items-center overflow-hidden bg-[#05060a]"
+      className="snap-panel relative flex min-h-svh w-full items-center overflow-hidden"
     >
       {/* 배경 3D 레이어 (지연 로드) */}
       <Suspense fallback={null}>

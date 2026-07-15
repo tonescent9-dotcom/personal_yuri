@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { FloatingDots } from './FloatingDots';
+import { Starfield, Nebula } from './Starfield';
 
 /** prefers-reduced-motion 사용자 여부를 구독하는 훅 */
 function usePrefersReducedMotion(): boolean {
@@ -18,16 +18,18 @@ function usePrefersReducedMotion(): boolean {
 }
 
 /**
- * 히어로 화면의 배경 레이어.
- * Three.js Canvas 는 순수 장식이므로 aria-hidden 으로 스크린리더 흐름에서 제외한다.
+ * 페이지 전체 뒤에 고정으로 깔리는 딥스페이스 배경.
+ * - position: fixed 라 스크롤해도 뷰포트에 남아, 모든 섹션에 별이 은은하게 이어진다.
+ * - pointer-events-none 이라 클릭/스크롤을 방해하지 않는다(인터랙션은 히어로의 별자리 전용).
+ * - 각 섹션 배경을 투명하게 두면 이 별밭이 그대로 비쳐 보인다.
  */
-export function ThreeBackground() {
+export function SiteBackground() {
   const reducedMotion = usePrefersReducedMotion();
 
   return (
     <div
-      className="fade is-visible absolute inset-0 z-0"
-      style={{ ['--reveal-delay' as string]: '0ms' }}
+      className="pointer-events-none fixed inset-0 -z-10"
+      style={{ width: '100vw', height: '100dvh' }}
       aria-hidden="true"
     >
       <Canvas
@@ -35,11 +37,9 @@ export function ThreeBackground() {
         camera={{ position: [0, 0, 6], fov: 50 }}
         gl={{ antialias: true, alpha: true }}
       >
-        <ambientLight intensity={1.2} />
-        <pointLight position={[4, 4, 6]} intensity={2} />
         <Suspense fallback={null}>
-          {/* 인터랙티브 별자리 (딥스페이스 별밭은 SiteBackground 가 전역으로 담당) */}
-          <FloatingDots reducedMotion={reducedMotion} showConnections />
+          <Nebula />
+          <Starfield count={4000} reducedMotion={reducedMotion} />
         </Suspense>
       </Canvas>
     </div>

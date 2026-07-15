@@ -81,60 +81,112 @@ export function ProjectPreview() {
   }, []);
 
   return (
-    <section id="projects" className="relative bg-[#05060a] py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 sm:px-8">
-        {/* 섹션 헤더 */}
-        <div className="mb-16 max-w-2xl sm:mb-24">
-          <p className="mb-4 text-xs font-medium uppercase tracking-[0.25em] text-[#8b7dff]">
-            Selected Work
-          </p>
-          <h2 className="text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl">
-            작은 점들이 모여
-            <br />
-            의미 있는 경험이 됩니다.
-          </h2>
-        </div>
+    <section id="projects" className="relative">
+      {projects.map((project, index) => (
+        <article
+          key={project.id}
+          ref={(el) => {
+            articleRefs.current[index] = el;
+          }}
+          className={`snap-panel group flex min-h-svh items-center py-16 ${
+            index === 0 ? 'mt-50 sm:mt-64' : 'mt-25'
+          }`}
+        >
+          <div className="mx-auto w-full max-w-7xl px-6 sm:px-8">
+            {/* 첫 패널에만 섹션 헤더를 얹는다 */}
+            {index === 0 && (
+              <div className="mb-14 max-w-2xl">
+                <p className="mb-4 text-xs font-medium uppercase tracking-[0.25em] text-[#8b7dff]">
+                  Selected Work
+                </p>
+                <h2 className="text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl">
+                  작은 점들이 모여
+                  <br />
+                  의미 있는 경험이 됩니다.
+                </h2>
+              </div>
+            )}
 
-        {/* 프로젝트 리스트 (에디토리얼) */}
-        <div className="flex flex-col gap-20 sm:gap-28">
-          {projects.map((project, index) => (
-            <article
-              key={project.id}
-              ref={(el) => {
-                articleRefs.current[index] = el;
-              }}
-              className={`group flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-16 ${
+            <div
+              className={`flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-16 ${
                 index % 2 === 1 ? 'lg:flex-row-reverse' : ''
               }`}
             >
-              {/* 넓은 이미지(placeholder) 영역 — 먼저 등장 */}
+              {/* 유리알 카드 — 매우 투명 + 테두리가 빛나는 글래스 */}
               <a
                 href={project.href}
                 aria-label={`${project.title} 프로젝트 보기`}
-                className="scroll-up relative block w-full overflow-hidden rounded-2xl lg:w-3/5"
-                style={suDelay(0)}
+                className="scroll-up group/card relative block aspect-3/4 w-full overflow-hidden rounded-4xl border border-white/25 backdrop-blur-2xl transition-transform duration-500 ease-out will-change-transform hover:-translate-y-2 sm:mx-auto sm:max-w-sm lg:mx-0 lg:w-2/5"
+                style={{
+                  ...suDelay(0),
+                  // 아주 옅은 유리 본체(투명감 유지)
+                  background:
+                    'linear-gradient(155deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.03) 45%, rgba(255,255,255,0.015) 100%)',
+                  // 바깥: 어두운 깊이 그림자 + 프로젝트 색 후광(테두리 빛)  /  안쪽: 밝은 상단 라인
+                  boxShadow: `0 30px 80px -30px rgba(0,0,0,0.85), 0 0 55px -12px ${project.tint}, inset 0 1px 1px rgba(255,255,255,0.55)`,
+                }}
               >
-                {/* 패럴랙스 래퍼 (약간 크게 잡아 이동 시 빈틈이 안 보이게) */}
+                {/* 프로젝트 색이 유리 안으로 스며드는 빛(패럴랙스로 살짝 움직임) */}
                 <div
                   ref={(el) => {
                     parallaxRefs.current[index] = el;
                   }}
-                  className="-my-8 will-change-transform"
+                  className="pointer-events-none absolute -inset-10 will-change-transform"
                   aria-hidden="true"
-                >
-                  <div
-                    className="aspect-[16/10] w-full scale-100 transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                    style={{ background: project.gradient }}
-                  />
-                  {/* 은은한 하이라이트 오버레이 */}
-                  <div
-                    className="pointer-events-none absolute inset-0"
-                    style={{
-                      background:
-                        'radial-gradient(circle at 30% 20%, rgba(255,255,255,0.08), transparent 55%)',
-                    }}
-                  />
-                </div>
+                  style={{
+                    background: `radial-gradient(55% 55% at 30% 25%, ${project.tint}, transparent 70%)`,
+                  }}
+                />
+
+                {/* 상단 테두리를 따라 흐르는 밝은 빛(유리알 윗면 반사) */}
+                <div
+                  className="pointer-events-none absolute inset-0"
+                  aria-hidden="true"
+                  style={{
+                    background:
+                      'radial-gradient(140% 90% at 50% -30%, rgba(255,255,255,0.45), transparent 55%)',
+                  }}
+                />
+
+                {/* 좌상단 하이라이트 crescent(유리알 특유의 밝은 반사) */}
+                <div
+                  className="pointer-events-none absolute inset-0"
+                  aria-hidden="true"
+                  style={{
+                    background:
+                      'radial-gradient(45% 45% at 22% 18%, rgba(255,255,255,0.35), transparent 60%)',
+                  }}
+                />
+
+                {/* 대각선 광택 줄 */}
+                <div
+                  className="pointer-events-none absolute inset-0"
+                  aria-hidden="true"
+                  style={{
+                    background:
+                      'linear-gradient(135deg, rgba(255,255,255,0.28) 0%, transparent 28%)',
+                  }}
+                />
+
+                {/* 안쪽 빛나는 테두리(rim) + 아래쪽 볼륨 그림자 */}
+                <div
+                  className="pointer-events-none absolute inset-0 rounded-4xl"
+                  aria-hidden="true"
+                  style={{
+                    boxShadow:
+                      'inset 0 0 0 1px rgba(255,255,255,0.28), inset 0 0 32px rgba(255,255,255,0.14), inset 0 -30px 50px -25px rgba(0,0,0,0.55)',
+                  }}
+                />
+
+                {/* 호버 시 rim 이 더 밝게 빛남 */}
+                <div
+                  className="pointer-events-none absolute inset-0 rounded-4xl opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
+                  aria-hidden="true"
+                  style={{
+                    boxShadow: `inset 0 0 0 1px rgba(255,255,255,0.5), 0 0 40px -6px ${project.tint}`,
+                  }}
+                />
+
                 {/* 인덱스 번호 */}
                 <span className="absolute bottom-4 left-5 z-10 text-sm font-medium tracking-widest text-white/70">
                   {String(project.id).padStart(2, '0')}
@@ -142,21 +194,15 @@ export function ProjectPreview() {
               </a>
 
               {/* 타이포그래피 영역 — 살짝 뒤에 등장 */}
-              <div
-                className="scroll-up w-full lg:w-2/5"
-                style={suDelay(140)}
-              >
+              <div className="scroll-up w-full lg:w-2/5" style={suDelay(140)}>
                 <div className="mb-3 flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-[#6b7080]">
                   <span>{project.category}</span>
                   <span aria-hidden="true">·</span>
                   <span>{project.year}</span>
                 </div>
-                <h3 className="mb-4 text-2xl font-semibold text-white sm:text-3xl">
+                <h3 className="mb-6 text-2xl font-semibold text-white sm:text-3xl">
                   {project.title}
                 </h3>
-                <p className="mb-6 max-w-md text-base leading-relaxed text-[#9aa0ad]">
-                  {project.description}
-                </p>
                 <a
                   href={project.href}
                   aria-label={`${project.title} 자세히 보기`}
@@ -171,10 +217,10 @@ export function ProjectPreview() {
                   </span>
                 </a>
               </div>
-            </article>
-          ))}
-        </div>
-      </div>
+            </div>
+          </div>
+        </article>
+      ))}
     </section>
   );
 }

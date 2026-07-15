@@ -27,6 +27,14 @@
 
 html {
   scroll-behavior: smooth;
+  /* 스크롤 한 번에 섹션 하나씩 보이도록 세로 스냅 */
+  scroll-snap-type: y mandatory;
+}
+
+/* 스냅 대상 섹션(한 화면 = 한 섹션) */
+.snap-panel {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 body {
@@ -36,6 +44,17 @@ body {
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* full-bleed 배경이 100vw 여도 가로 스크롤이 생기지 않도록 */
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
 }
 
 /* 접근성: 키보드 포커스 스타일 */
@@ -116,6 +135,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+    scroll-snap-type: none;
   }
   .reveal,
   .fade {
