@@ -34,7 +34,7 @@ function App() {
       </main>
 
       <footer className="snap-panel relative mt-25 border-t border-white/5 py-10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 text-sm text-[#6b7080] sm:flex-row sm:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 text-base text-[#6b7080] sm:flex-row sm:px-8">
           <span className="tracking-[0.2em]">DOTS.</span>
           <span>작은 점들이 모여 의미 있는 경험이 됩니다.</span>
           <span>© 2026</span>

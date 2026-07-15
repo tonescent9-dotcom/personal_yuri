@@ -47,11 +47,11 @@ export function HeroSection() {
       />
 
       {/* 앞쪽 콘텐츠 (오버레이 자체는 pointer-events-none, 버튼만 auto) */}
-      <div className="pointer-events-none relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-8">
-        <div className="max-w-2xl">
+      <div className="pointer-events-none relative z-10 w-full px-6 sm:px-8 lg:px-12">
+        <div className="w-full">
           {/* 1. 작은 영문 라벨 */}
           <p
-            className={`${revealClass()} mb-6 text-xs font-medium uppercase tracking-[0.25em] text-[#8b7dff]`}
+            className={`${revealClass()} mb-6 text-sm font-medium uppercase tracking-[0.25em] text-[#8b7dff]`}
             style={delay(200)}
           >
             UX/UI Designer · Product Thinker
@@ -59,17 +59,17 @@ export function HeroSection() {
 
           {/* 2. 메인 제목 */}
           <h1
-            className={`${revealClass()} text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl`}
+            className={`${revealClass()} text-[clamp(2rem,8.5vw,2.75rem)] font-semibold leading-[1.12] tracking-tight text-white sm:whitespace-nowrap sm:text-[clamp(1.5rem,5vw,6rem)] sm:leading-[1.05]`}
             style={delay(400)}
           >
-            Small dots,
+            How do we express human experience?
             <br />
-            <span className="text-[#c7cbd4]">meaningful experiences.</span>
+            <span className="text-[#c7cbd4]">And how do we see people?</span>
           </h1>
 
           {/* 3. 보조 문구 */}
           <p
-            className={`${revealClass()} mt-7 max-w-md text-base leading-relaxed text-[#9aa0ad] sm:text-lg`}
+            className={`${revealClass()} mt-7 max-w-xl text-lg leading-relaxed text-[#9aa0ad] sm:text-xl`}
             style={delay(650)}
           >
             사람의 경험을 관찰하고,

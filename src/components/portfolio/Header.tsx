@@ -21,12 +21,12 @@ export function Header() {
 
   return (
     <header className="pointer-events-none absolute inset-x-0 top-0 z-20">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 sm:px-8">
+      <div className="flex w-full items-center justify-between px-5 py-6">
         {/* 로고 */}
         <a
           href="#top"
           aria-label="DOTS 홈으로 이동"
-          className="pointer-events-auto text-lg font-semibold tracking-[0.2em] text-white"
+          className="pointer-events-auto text-xl font-semibold tracking-[0.2em] text-white"
         >
           DOTS
           <span className="text-[#8b7dff]">.</span>
@@ -40,7 +40,7 @@ export function Header() {
                 <a
                   href={item.href}
                   aria-label={`${item.label} 섹션으로 이동`}
-                  className="text-sm text-[#c7cbd4] transition-colors duration-200 hover:text-white"
+                  className="text-base text-[#c7cbd4] transition-colors duration-200 hover:text-white"
                 >
                   {item.label}
                 </a>

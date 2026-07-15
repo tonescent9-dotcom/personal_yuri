@@ -96,7 +96,7 @@ export function ProjectPreview() {
             {/* 첫 패널에만 섹션 헤더를 얹는다 */}
             {index === 0 && (
               <div className="mb-14 max-w-2xl">
-                <p className="mb-4 text-xs font-medium uppercase tracking-[0.25em] text-[#8b7dff]">
+                <p className="mb-4 text-sm font-medium uppercase tracking-[0.25em] text-[#8b7dff]">
                   Selected Work
                 </p>
                 <h2 className="text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl">
@@ -195,18 +195,18 @@ export function ProjectPreview() {
 
               {/* 타이포그래피 영역 — 살짝 뒤에 등장 */}
               <div className="scroll-up w-full lg:w-2/5" style={suDelay(140)}>
-                <div className="mb-3 flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-[#6b7080]">
+                <div className="mb-3 flex items-center gap-3 text-sm uppercase tracking-[0.2em] text-[#6b7080]">
                   <span>{project.category}</span>
                   <span aria-hidden="true">·</span>
                   <span>{project.year}</span>
                 </div>
-                <h3 className="mb-6 text-2xl font-semibold text-white sm:text-3xl">
+                <h3 className="mb-6 text-3xl font-semibold text-white sm:text-4xl">
                   {project.title}
                 </h3>
                 <a
                   href={project.href}
                   aria-label={`${project.title} 자세히 보기`}
-                  className="inline-flex items-center gap-2 text-sm font-medium text-white transition-colors hover:text-[#8b7dff]"
+                  className="inline-flex items-center gap-2 text-base font-medium text-white transition-colors hover:text-[#8b7dff]"
                 >
                   View project
                   <span
